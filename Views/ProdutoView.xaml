@@ -1,0 +1,38 @@
+﻿<Window x:Class="proj1.Views.ProdutoView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:proj1.Views"
+        mc:Ignorable="d"
+        Title=" Produtos" Width="750" Height="703" Background="#f4f4f4" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Icon="/Views/shopping-basket-add256_24909.png">
+
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Text="Cadastro de Produtos" FontSize="22" FontWeight="Bold" 
+                   HorizontalAlignment="Center" Foreground="#333" Margin="0,20"/>
+        <Label Content="Nome:" FontSize="14" FontWeight="Bold" Margin="0,69,608,155" Grid.RowSpan="2"/>
+        <TextBox Text="{Binding ProdutoSelecionado.Nome}" Padding="5" Margin="94,68,195,155" Grid.RowSpan="2"/>
+        <Label Content="Descrição:" FontSize="14" FontWeight="Bold" Margin="0,48,621,108" Grid.Row="1"/>
+        <TextBox Text="{Binding ProdutoSelecionado.Descricao}" Padding="5" Margin="94,46,195,108" Grid.Row="1"/>
+        <Label Content="Preço:" FontSize="14" FontWeight="Bold" Margin="0,109,632,48" Grid.Row="1"/>
+        <TextBox Text="{Binding ProdutoSelecionado.Preco}" Padding="5" Margin="94,105,466,48" Grid.Row="1"/>
+        <Label Content="Quantidade:" FontSize="14" FontWeight="Bold" Margin="0,166,604,176" Grid.Row="1" Grid.RowSpan="2"/>
+        <TextBox Text="{Binding ProdutoSelecionado.Quantidade}" Padding="5" Margin="94,158,466,182" Grid.Row="1" Grid.RowSpan="2"/>
+        <Label Content="Fornecedor ID:" FontSize="14" FontWeight="Bold" Margin="0,24,592,132" Grid.Row="2"/>
+        <TextBox Text="{Binding ProdutoSelecionado.FornecedorID}" Padding="5" Margin="118,22,380,132" Grid.Row="2"/>
+        <Button Content="Adicionar" Command="{Binding AdicionarProdutoCommand}" Margin="590,8,0,141" Grid.Row="1"/>
+        <Button Content="Atualizar" Command="{Binding AtualizarProdutoCommand}" Margin="590,62,0,87" Grid.Row="1"/>
+        <Button Content="Excluir" Command="{Binding RemoverProdutoCommand}" Margin="590,115,0,34" Grid.Row="1"/>
+        <Button Content="Limpar" Command="{Binding LimparCamposCommand}" Margin="590,171,0,165" Grid.Row="1" Grid.RowSpan="2"/>
+
+        <DataGrid Grid.Row="3" ItemsSource="{Binding Produtos}" AutoGenerateColumns="True" 
+                  SelectedItem="{Binding ProdutoSelecionado}" Margin="10,10,10,15"/>
+    </Grid>
+</Window>
