@@ -9,6 +9,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 using System.Xml.Linq;
 
@@ -18,41 +19,143 @@ namespace proj1.ViewModels
     {
         private CadastroContext _context = new CadastroContext();
 
-        public ObservableCollection<Produto> Produtos { get; set; }
-        public Produto ProdutoSelecionado { get; set; }
+        private ObservableCollection<Fornecedor> _fornecedores;
+        public ObservableCollection<Fornecedor> Fornecedores
+        {
+            get => _fornecedores;
+            set
+            {
+                _fornecedores = value;
+                OnPropertyChanged(nameof(Fornecedores));
+            }
+        }
+
+        private ObservableCollection<Produto> _produtos;
+        public ObservableCollection<Produto> Produtos
+        {
+            get => _produtos;
+            set
+            {
+                _produtos = value;
+                OnPropertyChanged(nameof(Produtos));
+            }
+        }
+
+        private Produto _produtoSelecionado;
+        public Produto ProdutoSelecionado
+        {
+            get => _produtoSelecionado;
+            set
+            {
+                _produtoSelecionado = value;
+                OnPropertyChanged(nameof(ProdutoSelecionado));
+           
+              
+            }
+        }
+
+        private Fornecedor _fornecedorSelecionado;
+        public Fornecedor FornecedorSelecionado
+        {
+            get => _fornecedorSelecionado;
+            set
+            {
+                if (_fornecedorSelecionado != value)
+                {
+                    _fornecedorSelecionado = value;
+                    OnPropertyChanged(nameof(FornecedorSelecionado));
+                }
+            }
+        }
+
+
 
         public ICommand AdicionarProdutoCommand { get; }
         public ICommand AtualizarProdutoCommand { get; }
         public ICommand RemoverProdutoCommand { get; }
 
+        public ICommand LimparProdutoCommand { get; }
+
         public ProdutoViewModel()
         {
-            Produtos = new ObservableCollection<Produto>(_context.Produtos.Include(p => p.FornecedorID).ToList());
+            CarregarFornecedores();
+            CarregarDados();
 
             AdicionarProdutoCommand = new RelayCommand(AdicionarProduto);
             AtualizarProdutoCommand = new RelayCommand(AtualizarProduto, () => ProdutoSelecionado != null);
             RemoverProdutoCommand = new RelayCommand(RemoverProduto, () => ProdutoSelecionado != null);
+            LimparProdutoCommand = new RelayCommand(LimparCampos);
+        }
+
+        private void CarregarFornecedores()
+        {
+            Fornecedores = new ObservableCollection<Fornecedor>(_context.Fornecedores.ToList());
+        }
+
+        private void CarregarDados()
+        {
+      
+            Produtos = new ObservableCollection<Produto>(
+                _context.Produtos.Include(p => p.Fornecedor).ToList());
+
+        
         }
 
         private void AdicionarProduto()
         {
-            var novoProduto = new Produto { Nome = "Novo Produto", Preco = 10, Quantidade = 5, FornecedorID = 1 };
-            _context.Produtos.Add(novoProduto);
-            _context.SaveChanges();
-            Produtos.Add(novoProduto);
+            if (ProdutoSelecionado == null)
+            {
+                ProdutoSelecionado = new Produto();
+            }
+
+            try
+            {
+                _context.Produtos.Add(ProdutoSelecionado);
+                _context.SaveChanges();
+                Produtos.Add(ProdutoSelecionado);
+
+                
+                ProdutoSelecionado = new Produto();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Erro ao adicionar: {ex.Message}");
+            }
         }
+        
 
         private void AtualizarProduto()
         {
-            _context.Entry(ProdutoSelecionado).State = EntityState.Modified;
-            _context.SaveChanges();
+            if (ProdutoSelecionado == null) return;
+
+            try
+            {
+                if (FornecedorSelecionado != null)
+                {
+                    ProdutoSelecionado.FornecedorID = FornecedorSelecionado.ID;
+                }
+
+                _context.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Erro: {ex.Message}");
+            }
         }
 
         private void RemoverProduto()
         {
-            _context.Produtos.Remove(ProdutoSelecionado);
-            _context.SaveChanges();
-            Produtos.Remove(ProdutoSelecionado);
+            if (ProdutoSelecionado != null)
+            {
+                _context.Produtos.Remove(ProdutoSelecionado);
+                _context.SaveChanges();
+                Produtos.Remove(ProdutoSelecionado);
+            }
+        }
+
+        private void LimparCampos()
+        {
+            ProdutoSelecionado = new Produto();
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

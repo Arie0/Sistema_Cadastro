@@ -11,14 +11,95 @@ namespace proj1.Models
 {
     using System;
     using System.Collections.Generic;
-    
-    public partial class Fornecedor
+    using System.ComponentModel;
+    using System.Runtime.CompilerServices;
+
+    public partial class Fornecedor : INotifyPropertyChanged
     {
-        public int ID { get; set; }
-        public string Nome { get; set; }
-        public string CNPJ { get; set; }
-        public string Telefone { get; set; }
-        public string Email { get; set; }
-        public string Endereco { get; set; }
+        private int iD;
+        private string nome;
+        private string cNPJ;
+        private string telefone;
+        private string email;
+        private string endereco;
+
+        public int ID
+        {
+            get => iD; set
+            {
+                iD = value;
+                {
+                    iD = value;
+                    OnPropertyChanged(nameof(ID));
+                }
+            }
+        }
+        public string Nome
+        {
+            get => nome; set
+            {
+                nome = value;
+
+                {
+                    nome = value;
+                    OnPropertyChanged(nameof(nome));
+                }
+            }
+        }
+
+
+
+        public string CNPJ
+        {
+            get => cNPJ; set
+            {
+                cNPJ = value;
+
+                {
+                    cNPJ = value;
+                    OnPropertyChanged(nameof(cNPJ));
+                }
+            }
+        }
+
+        public string Telefone
+        {
+            get => telefone; set
+            {
+                telefone = value;
+
+                {
+                    telefone = value;
+                    OnPropertyChanged(nameof(telefone));
+                }
+            }
+        }
+
+        public string Email
+        {
+            get => email; set
+            {
+                email = value;
+
+                email = value;
+                OnPropertyChanged(nameof(email));
+            }
+        }
+        public string Endereco
+        {
+            get => endereco; set
+            {
+                endereco = value;
+
+                endereco = value;
+                OnPropertyChanged(nameof(endereco));
+            }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
     }
 }

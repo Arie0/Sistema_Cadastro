@@ -11,15 +11,13 @@ namespace proj1.Models
 {
     using System;
     using System.Collections.Generic;
-    
-    public partial class Produto
+    using System.ComponentModel.DataAnnotations;
+
+    public partial class Usuario
     {
-        public int ID { get; set; }
-        public string Nome { get; set; }
-        public string Descricao { get; set; }
-        public decimal Preco { get; set; }
-        public int Quantidade { get; set; }
-        public Nullable<int> FornecedorID { get; set; }
-        public virtual Fornecedor Fornecedor { get; set; }
+        [Key]
+        public int ID{ get; set; }
+        public string username { get; set; }
+        public string password { get; set; }
     }
 }

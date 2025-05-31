@@ -82,7 +82,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Data\CadastroContext.cs" />
+    <Compile Include="Contexto\CadastroContext.cs" />
+    <Compile Include="LoginV.xaml.cs">
+      <DependentUpon>LoginV.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Models\Fornecedor.cs">
       <DependentUpon>FornecedorModel.tt</DependentUpon>
     </Compile>
@@ -119,6 +122,24 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ProdutoModel.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\Usuario.cs">
+      <DependentUpon>UsuarioModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\UsuarioModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>UsuarioModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\UsuarioModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>UsuarioModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\UsuarioModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>UsuarioModel.edmx</DependentUpon>
+    </Compile>
     <Compile Include="ViewModels\FornecedorViewModel.cs" />
     <Compile Include="ViewModels\ProdutoViewModel.cs" />
     <Compile Include="Views\FornecedorView.xaml.cs">
@@ -127,6 +148,10 @@
     <Compile Include="Views\ProdutoView.xaml.cs">
       <DependentUpon>ProdutoView.xaml</DependentUpon>
     </Compile>
+    <Page Include="LoginV.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -180,6 +205,13 @@
     <None Include="Models\ProdutoModel.edmx.diagram">
       <DependentUpon>ProdutoModel.edmx</DependentUpon>
     </None>
+    <EntityDeploy Include="Models\UsuarioModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>UsuarioModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="Models\UsuarioModel.edmx.diagram">
+      <DependentUpon>UsuarioModel.edmx</DependentUpon>
+    </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -216,6 +248,16 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>ProdutoModel.edmx</DependentUpon>
       <LastGenOutput>ProdutoModel.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\UsuarioModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>UsuarioModel.edmx</DependentUpon>
+      <LastGenOutput>UsuarioModel.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\UsuarioModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>UsuarioModel.edmx</DependentUpon>
+      <LastGenOutput>UsuarioModel.cs</LastGenOutput>
     </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
