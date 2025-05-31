@@ -43,43 +43,34 @@ namespace proj1.ViewModels
             }
         }
 
-        public ICommand AdicionarFornecedorCommand { get; }
+        public ICommand SalvarCommand { get; }
+        public ICommand NovoFornecedorCommand { get; }
         public ICommand AtualizarFornecedorCommand { get; }
         public ICommand RemoverFornecedorCommand { get; }
-        public ICommand LimparCamposCommand { get; }
+
 
         public FornecedorViewModel()
         {
             CarregarFornecedores();
 
-            AdicionarFornecedorCommand = new RelayCommand(AdicionarFornecedor, PodeSalvar);
+            SalvarCommand = new RelayCommand(SalvarFornecedor);
+            NovoFornecedorCommand = new RelayCommand(NovoFornecedor);
             AtualizarFornecedorCommand = new RelayCommand(AtualizarFornecedor, () => FornecedorSelecionado != null);
             RemoverFornecedorCommand = new RelayCommand(RemoverFornecedor, () => FornecedorSelecionado != null);
-            LimparCamposCommand = new RelayCommand(LimparCampos);
 
             FornecedorSelecionado = new Fornecedor(); 
         }
 
-        private void CarregarFornecedores()
-        {
-            Fornecedores = new ObservableCollection<Fornecedor>(_context.Fornecedores.ToList());
-        }
+        
 
-      
-        private void AdicionarFornecedor()
-        {
-            FornecedorSelecionado = new Fornecedor();
-        }
-
-        private bool PodeSalvar(object obj) => FornecedorSelecionado != null;
-
-        private void Salvar(object obj)
+        private void SalvarFornecedor()
         {
             try
             {
                 if (FornecedorSelecionado.ID == 0)
                 {
                     _context.Fornecedores.Add(FornecedorSelecionado);
+                    
                 }
                 else
                 {
@@ -95,7 +86,20 @@ namespace proj1.ViewModels
             }
         }
 
+        private void CarregarFornecedores()
+        {
+            Fornecedores = new ObservableCollection<Fornecedor>(_context.Fornecedores.ToList());
+        }
 
+      
+        private void NovoFornecedor()
+        {
+            FornecedorSelecionado = new Fornecedor();
+
+        }
+
+
+      
         private void AtualizarFornecedor()
         {
             try
@@ -112,18 +116,23 @@ namespace proj1.ViewModels
 
         private void RemoverFornecedor()
         {
-            try
+            if (MessageBox.Show("Confirmar exclusão?", "Atenção", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
             {
-                _context.Fornecedores.Remove(FornecedorSelecionado);
-                _context.SaveChanges();
-                Fornecedores.Remove(FornecedorSelecionado);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Erro ao remover: {ex.Message}");
+                try
+                {
+                    _context.Fornecedores.Remove(FornecedorSelecionado);
+                    _context.SaveChanges();
+                    Fornecedores.Remove(FornecedorSelecionado);
+                    
+                }
+                catch (DbUpdateException)
+                {
+                    MessageBox.Show("Erro ao remover: Fornecedor possui relacionamentos");
+                }
             }
         }
-
+            
+       
         private void LimparCampos()
         {
             FornecedorSelecionado = new Fornecedor();

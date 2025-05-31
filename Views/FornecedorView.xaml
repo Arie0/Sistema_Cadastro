@@ -41,8 +41,17 @@
             <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
         <Image Source="/Views/graph_marketing_time_strategy_finance_management_business_icon_263055.png" 
-               Grid.ColumnSpan="2" Margin="106,0,444,20"/>
-        <Label Content="Cadastro de Fornecedores" Grid.ColumnSpan="2" Margin="201,11,134,0" VerticalAlignment="Top" FontSize="16" FontFamily="Bookman Old Style"/>
+               Grid.ColumnSpan="2" Margin="461,-8,70,245" RenderTransformOrigin="0.5,0.5" Grid.RowSpan="2">
+            <Image.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="0.069"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Image.RenderTransform>
+        </Image>
+        <Label Content="Cadastro de Fornecedores" Grid.ColumnSpan="2" Margin="201,11,134,0" VerticalAlignment="Top" FontSize="16" FontFamily="Arial"/>
 
         <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
             <Grid.RowDefinitions>
@@ -59,48 +68,43 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
-
             <Label Grid.Row="0" Grid.Column="0" Content="ID:"/>
-            <TextBox Grid.Row="0" Text="{Binding FornecedorSelecionado.ID}" 
+            <TextBox x:Name="txt_ID" Grid.Row="0" Text="{Binding FornecedorSelecionado.ID}" 
                  IsReadOnly="True" IsEnabled="False" Grid.ColumnSpan="2" Margin="89,5,431,5"/>
 
             <Label Grid.Row="1" Grid.Column="0" Content="Nome:"/>
             <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding FornecedorSelecionado.Nome}"/>
 
-
             <Label Grid.Row="2" Grid.Column="0" Content="CNPJ:"/>
-            <TextBox Grid.Row="2" Text="{Binding FornecedorSelecionado.CNPJ, StringFormat='{}{0:00\.000\.000\/0000\-00}'}" 
+            <TextBox x:Name="txt_CNPJ" Grid.Row="2" Text="{Binding FornecedorSelecionado.CNPJ, StringFormat='{}{0:00\.000\.000\/0000\-00}'}" 
          PreviewTextInput="NumberValidation_PreviewTextInput" Grid.ColumnSpan="2" Margin="89,5,209,5"/>
 
-
             <Label Grid.Row="3" Grid.Column="0" Content="Telefone:"/>
-            <TextBox Grid.Row="3" Text="{Binding FornecedorSelecionado.Telefone, StringFormat='{}{0:(00) 00000\-0000}'}" 
+            <TextBox x:Name="txt_Telefone" Grid.Row="3" Text="{Binding FornecedorSelecionado.Telefone, StringFormat='{}{0:(00) 00000\-0000}'}" 
          PreviewTextInput="NumberValidation_PreviewTextInput" Margin="89,5,209,5" Grid.ColumnSpan="2"/>
 
             <Label Grid.Row="4" Grid.Column="0" Content="Email:"/>
-            <TextBox Grid.Row="4" Text="{Binding FornecedorSelecionado.Email}" Grid.ColumnSpan="2" Margin="89,5,209,5"/>
+            <TextBox x:Name="txt_Email" Grid.Row="4" Text="{Binding FornecedorSelecionado.Email}" Grid.ColumnSpan="2" Margin="89,5,209,5"/>
 
             <Label Grid.Row="5" Grid.Column="0" Content="Endereço:"/>
-            <TextBox Grid.Row="5" Grid.Column="1" Text="{Binding FornecedorSelecionado.Endereco}"/>
+            <TextBox x:Name="txt_Endereco" Grid.Row="5" Grid.Column="1" Text="{Binding FornecedorSelecionado.Endereco}"/>
         </Grid>
 
-
-        <StackPanel Grid.Row="1" Grid.Column="2" Margin="10,0,0,0">
-            <Button Content="Adicionar" Command="{Binding AdicionarFornecedorCommand}" Cursor="Hand"/>
-            <Button Content="Atualizar" Command="{Binding AtualizarFornecedorCommand}" Cursor="Hand"/>
-            <Button Content="Excluir" Command="{Binding RemoverFornecedorCommand}"/>
-            <Button Content="Limpar" Command="{Binding LimparCamposCommand}" Cursor="Hand"/>
+        <StackPanel Grid.Row="1" Grid.Column="2" Margin="10,0,0,0" Cursor="Hand">
+            <Button Content="Novo" Command="{Binding NovoFornecedorCommand}" Cursor="Hand"/>
+            <Button x:Name="btn_Salvar" Content="Salvar" Command="{Binding SalvarCommand}" Cursor="Hand"/>
+            <Button x:Name="btn_Atualizar" Content="Atualizar" Command="{Binding AtualizarFornecedorCommand}" Cursor="Hand"/>
+            <Button x:Name="btn_Excluir" Content="Excluir" Command="{Binding RemoverFornecedorCommand}" Cursor="Hand"/>
         </StackPanel>
 
-
-        <DataGrid Grid.Row="2" Grid.ColumnSpan="3" ItemsSource="{Binding Fornecedores}" 
+        <DataGrid x:Name="datagrid_fornec" Grid.Row="2" Grid.ColumnSpan="3" ItemsSource="{Binding Fornecedores}" 
               AutoGenerateColumns="False" SelectedItem="{Binding FornecedorSelecionado}" 
               Margin="0,20,0,0" CanUserAddRows="False">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="ID" Binding="{Binding ID}" Width="Auto" IsReadOnly="True"/>
-                <DataGridTextColumn Header="Nome" Binding="{Binding Nome}" Width="*"/>
-                <DataGridTextColumn Header="CNPJ" Binding="{Binding CNPJ}" Width="Auto"/>
-                <DataGridTextColumn Header="Telefone" Binding="{Binding Telefone}" Width="Auto"/>
+                <DataGridTextColumn Header="Nome" Binding="{Binding Nome}" Width="200"/>
+                <DataGridTextColumn Header="CNPJ" Binding="{Binding CNPJ}" Width="200"/>
+                <DataGridTextColumn Header="Telefone" Binding="{Binding Telefone}" Width="200"/>
             </DataGrid.Columns>
         </DataGrid>
     </Grid>
