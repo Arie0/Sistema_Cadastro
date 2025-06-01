@@ -127,7 +127,7 @@ namespace proj1.ViewModels
                 }
                 catch (DbUpdateException)
                 {
-                    MessageBox.Show("Erro ao remover: Fornecedor possui relacionamentos");
+                    MessageBox.Show("Erro ao remover: Fornecedor esta vinculado com um produto");
                 }
             }
         }

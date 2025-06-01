@@ -25,5 +25,10 @@ namespace proj1.Views
             InitializeComponent();
             DataContext = new ProdutoViewModel();
         }
+
+        private void btn_AtualizarProd_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

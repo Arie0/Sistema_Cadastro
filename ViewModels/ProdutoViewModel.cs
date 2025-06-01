@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,16 +20,7 @@ namespace proj1.ViewModels
     {
         private CadastroContext _context = new CadastroContext();
 
-        private ObservableCollection<Fornecedor> _fornecedores;
-        public ObservableCollection<Fornecedor> Fornecedores
-        {
-            get => _fornecedores;
-            set
-            {
-                _fornecedores = value;
-                OnPropertyChanged(nameof(Fornecedores));
-            }
-        }
+      
 
         private ObservableCollection<Produto> _produtos;
         public ObservableCollection<Produto> Produtos
@@ -49,8 +41,17 @@ namespace proj1.ViewModels
             {
                 _produtoSelecionado = value;
                 OnPropertyChanged(nameof(ProdutoSelecionado));
-           
-              
+
+            }
+        }
+        private ObservableCollection<Fornecedor> _fornecedores;
+        public ObservableCollection<Fornecedor> Fornecedores
+        {
+            get => _fornecedores;
+            set
+            {
+                _fornecedores = value;
+                OnPropertyChanged(nameof(Fornecedores));
             }
         }
 
@@ -59,32 +60,32 @@ namespace proj1.ViewModels
         {
             get => _fornecedorSelecionado;
             set
-            {
-                if (_fornecedorSelecionado != value)
-                {
+            {                
                     _fornecedorSelecionado = value;
                     OnPropertyChanged(nameof(FornecedorSelecionado));
-                }
+
+                    
+                
             }
         }
 
+        public ICommand SalvarCommand { get; }
 
-
-        public ICommand AdicionarProdutoCommand { get; }
-        public ICommand AtualizarProdutoCommand { get; }
+        public ICommand NovoProdutoCommand { get; }
+        public ICommand AtualizarCommand { get; }
         public ICommand RemoverProdutoCommand { get; }
 
-        public ICommand LimparProdutoCommand { get; }
 
         public ProdutoViewModel()
         {
             CarregarFornecedores();
             CarregarDados();
 
-            AdicionarProdutoCommand = new RelayCommand(AdicionarProduto);
-            AtualizarProdutoCommand = new RelayCommand(AtualizarProduto, () => ProdutoSelecionado != null);
-            RemoverProdutoCommand = new RelayCommand(RemoverProduto, () => ProdutoSelecionado != null);
-            LimparProdutoCommand = new RelayCommand(LimparCampos);
+            SalvarCommand = new RelayCommand(SalvarProduto);
+            NovoProdutoCommand = new RelayCommand(NovoProduto);
+            AtualizarCommand = new RelayCommand(AtualizarProduto);
+            RemoverProdutoCommand = new RelayCommand(RemoverProduto);
+
         }
 
         private void CarregarFornecedores()
@@ -94,73 +95,91 @@ namespace proj1.ViewModels
 
         private void CarregarDados()
         {
-      
+
             Produtos = new ObservableCollection<Produto>(
                 _context.Produtos.Include(p => p.Fornecedor).ToList());
 
-        
         }
 
-        private void AdicionarProduto()
+        private void SalvarProduto()
         {
-            if (ProdutoSelecionado == null)
-            {
-                ProdutoSelecionado = new Produto();
-            }
-
             try
             {
-                _context.Produtos.Add(ProdutoSelecionado);
-                _context.SaveChanges();
-                Produtos.Add(ProdutoSelecionado);
 
-                
+                if (FornecedorSelecionado != null)
+                    ProdutoSelecionado.FornecedorID = FornecedorSelecionado.ID;
+
+                if (ProdutoSelecionado.ID == 0)
+                {
+                    _context.Produtos.Add(ProdutoSelecionado);
+                }
+                else
+                {
+                    _context.Entry(ProdutoSelecionado).State = EntityState.Modified;
+                                                        
+                }
+                                
+                _context.SaveChanges();          
+                CarregarDados();
+
                 ProdutoSelecionado = new Produto();
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Erro ao adicionar: {ex.Message}");
+                MessageBox.Show($"Erro ao salvar: {ex.Message}");
             }
         }
-        
+        private void NovoProduto()
+        {
+            ProdutoSelecionado = new Produto();
+          
+        }
 
         private void AtualizarProduto()
         {
-            if (ProdutoSelecionado == null) return;
-
+            if ( ProdutoSelecionado?.ID <= 0)
+            {
+                MessageBox.Show("Selecione um produto válido!");
+                return;
+            }
             try
             {
                 if (FornecedorSelecionado != null)
-                {
-                    ProdutoSelecionado.FornecedorID = FornecedorSelecionado.ID;
-                }
+                   ProdutoSelecionado.FornecedorID = FornecedorSelecionado.ID;
 
+                _context.Entry(ProdutoSelecionado).State = EntityState.Modified;
                 _context.SaveChanges();
+                CarregarDados();
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Erro: {ex.Message}");
+                MessageBox.Show($"Erro ao atualizar!");
             }
         }
 
         private void RemoverProduto()
         {
-            if (ProdutoSelecionado != null)
+            if (MessageBox.Show("Confirmar exclusão?", "Atenção", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
             {
-                _context.Produtos.Remove(ProdutoSelecionado);
-                _context.SaveChanges();
-                Produtos.Remove(ProdutoSelecionado);
+                try
+                {
+                    _context.Produtos.Remove(ProdutoSelecionado);
+                    _context.SaveChanges();
+                    Produtos.Remove(ProdutoSelecionado);
+
+                }
+                catch (DbUpdateException)
+                {
+                    MessageBox.Show("Erro ao remover: Produto esta vinculado");
+                }
             }
         }
 
-        private void LimparCampos()
-        {
-            ProdutoSelecionado = new Produto();
-        }
 
         public event PropertyChangedEventHandler PropertyChanged;
-        protected void OnPropertyChanged(string propertyName) =>
+        protected void OnPropertyChanged(string propertyName)=>
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        
     }
 
 }

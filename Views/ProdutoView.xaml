@@ -11,32 +11,81 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition/>
         </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
 
-        <TextBlock Text="Cadastro de Produtos" FontSize="22" FontWeight="Bold" 
-                   HorizontalAlignment="Center" Foreground="#333" Margin="0,20"/>
-        <Label Content="Nome:" FontSize="14" FontWeight="Bold" Margin="4,25,604,131" Grid.Row="1"/>
-        <TextBox Text="{Binding ProdutoSelecionado.Nome}" Padding="5" Margin="112,27,177,128" Grid.Row="1"/>
-        <Label Content="Descrição:" FontSize="14" FontWeight="Bold" Margin="0,79,621,78" Grid.Row="1"/>
-        <TextBox Text="{Binding ProdutoSelecionado.Descricao}" Padding="5" Margin="112,81,177,74" Grid.Row="1"/>
-        <Label Content="Preço:" FontSize="14" FontWeight="Bold" Margin="0,134,632,23" Grid.Row="1"/>
-        <TextBox Text="{Binding ProdutoSelecionado.Preco}" Padding="5" Margin="112,134,448,20" Grid.Row="1"/>
-        <Label Content="Quantidade:" FontSize="14" FontWeight="Bold" Margin="0,10,604,146" Grid.Row="2"/>
-        <TextBox Text="{Binding ProdutoSelecionado.Quantidade}" Padding="5" Margin="112,10,448,144" Grid.Row="2"/>
-        <Label Content="Fornecedor:" FontSize="14" FontWeight="Bold" Margin="0,78,592,78" Grid.Row="2"/>
-        <ComboBox ItemsSource="{Binding Fornecedores}" 
-          DisplayMemberPath="Nome"
-          SelectedValuePath="Id"
-          SelectedValue="{Binding ProdutoSelecionado.FornecedorID}"
-          Padding="5" Margin="112,77,386,77" Grid.Row="2"/>
-        <Button Content="Adicionar" Command="{Binding AdicionarProdutoCommand}" Margin="590,8,0,141" Grid.Row="1"/>
-        <Button Content="Atualizar" Command="{Binding AtualizarProdutoCommand}" Margin="590,62,0,87" Grid.Row="1"/>
-        <Button Content="Excluir" Command="{Binding RemoverProdutoCommand}" Margin="590,115,0,34" Grid.Row="1"/>
-        <Button Content="Limpar" Command="{Binding LimparCamposCommand}" Margin="590,171,0,165" Grid.Row="1" Grid.RowSpan="2"/>
+        <StackPanel Orientation="Horizontal" Grid.ColumnSpan="2" HorizontalAlignment="Center" Margin="0,0,0,20">
+            <Label Content="Cadastro de Produtos" FontSize="22" FontWeight="Bold"/>
+            <Image Source="/Views/shopping-basket-add256_24909.png" Width="32" Height="32" Margin="10,0,0,0"/>
+        </StackPanel>
 
-        <DataGrid Grid.Row="3" ItemsSource="{Binding Produtos}" AutoGenerateColumns="True" 
-                  SelectedItem="{Binding ProdutoSelecionado}" Margin="10,10,10,15"/>
+        <Grid Grid.Row="1" Margin="0,10">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Label Content="Nome:" Grid.Row="0" FontWeight="Bold" VerticalAlignment="Center" Margin="5"/>
+            <TextBox x:Name="txt_NomeProd" Grid.Row="0" Grid.Column="1" 
+                 Text="{Binding ProdutoSelecionado.Nome, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                 Margin="5" Padding="5"/>
+
+            <Label Content="Descrição:" Grid.Row="1" FontWeight="Bold" VerticalAlignment="Center" Margin="5"/>
+            <TextBox x:Name="txt_DescProd" Grid.Row="1" Grid.Column="1" 
+                 Text="{Binding ProdutoSelecionado.Descricao, Mode=TwoWay}" 
+                 Margin="5" Padding="5"/>
+
+            <Label Content="Preço:" Grid.Row="2" FontWeight="Bold" VerticalAlignment="Center" Margin="5"/>
+            <TextBox x:Name="txt_PrecoProd" Grid.Row="2" Grid.Column="1" 
+                 Text="{Binding ProdutoSelecionado.Preco, Mode=TwoWay, StringFormat=C2}" 
+                 Margin="5" Padding="5" Width="150" HorizontalAlignment="Left"/>
+
+            <Label Content="Quantidade:" Grid.Row="3" FontWeight="Bold" VerticalAlignment="Center" Margin="5"/>
+            <TextBox x:Name="txt_QuantidadeProd" Grid.Row="3" Grid.Column="1" 
+                 Text="{Binding ProdutoSelecionado.Quantidade, Mode=TwoWay}" 
+                 Margin="5" Padding="5" Width="150" HorizontalAlignment="Left"/>
+
+            <Label Content="Fornecedor:" Grid.Row="4" FontWeight="Bold" VerticalAlignment="Center" Margin="5"/>
+            <ComboBox x:Name="Combobox_Prod" Grid.Row="4" Grid.Column="1" 
+                  ItemsSource="{Binding Fornecedores}" 
+                  DisplayMemberPath="Nome"
+                  SelectedValuePath="ID"
+                  SelectedValue="{Binding ProdutoSelecionado.FornecedorID, Mode=TwoWay}"
+                  Margin="5" Padding="5"/>
+        </Grid>
+
+        <StackPanel Grid.Row="1" Grid.Column="1" Margin="20,10" VerticalAlignment="Top">
+            <Button x:Name="btn_SalvarProd" Content="Salvar" Command="{Binding SalvarCommand}" 
+                Padding="10,5" Margin="0,0,0,10" Cursor="Hand" MinWidth="100"/>
+            <Button x:Name="btn_NovoProd" Content="Novo" Command="{Binding NovoProdutoCommand}" 
+                Padding="10,5" Margin="0,0,0,10" Cursor="Hand" MinWidth="100"/>
+            <Button x:Name="btn_AtualizarProd" Content="Atualizar" Command="{Binding AtualizarCommand}" 
+                Padding="10,5" Margin="0,0,0,10" Cursor="Hand" MinWidth="100"/>
+            <Button x:Name="btn_ExcluirProd" Content="Excluir" Command="{Binding RemoverProdutoCommand}" 
+                Padding="10,5" Cursor="Hand" MinWidth="100"/>
+        </StackPanel>
+
+        <DataGrid Grid.Row="2" Grid.ColumnSpan="2" ItemsSource="{Binding Produtos}" 
+              SelectedItem="{Binding ProdutoSelecionado, Mode=TwoWay}"
+              AutoGenerateColumns="False" Margin="0,10">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Nome" Binding="{Binding Nome}" Width="*"/>
+                <DataGridTextColumn Header="Descrição" Binding="{Binding Descricao}" Width="*"/>
+                <DataGridTextColumn Header="Preço" Binding="{Binding Preco, StringFormat=C2}" Width="Auto"/>
+                <DataGridTextColumn Header="Quantidade" Binding="{Binding Quantidade}" Width="Auto"/>
+                <DataGridTextColumn Header="Fornecedor" Binding="{Binding Fornecedor.Nome}" Width="*"/>
+            </DataGrid.Columns>
+        </DataGrid>
     </Grid>
 </Window>
