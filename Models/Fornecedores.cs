@@ -14,7 +14,7 @@ namespace proj1.Models
     using System.ComponentModel;
     using System.Runtime.CompilerServices;
 
-    public partial class Fornecedor : INotifyPropertyChanged
+    public partial class Fornecedores : INotifyPropertyChanged
     {
         private int iD;
         private string nome;

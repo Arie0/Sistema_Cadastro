@@ -22,8 +22,8 @@ namespace proj1.ViewModels
 
       
 
-        private ObservableCollection<Produto> _produtos;
-        public ObservableCollection<Produto> Produtos
+        private ObservableCollection<Produtos> _produtos;
+        public ObservableCollection<Produtos> Produtos
         {
             get => _produtos;
             set
@@ -33,8 +33,8 @@ namespace proj1.ViewModels
             }
         }
 
-        private Produto _produtoSelecionado;
-        public Produto ProdutoSelecionado
+        private Produtos _produtoSelecionado;
+        public Produtos ProdutoSelecionado
         {
             get => _produtoSelecionado;
             set
@@ -44,8 +44,8 @@ namespace proj1.ViewModels
 
             }
         }
-        private ObservableCollection<Fornecedor> _fornecedores;
-        public ObservableCollection<Fornecedor> Fornecedores
+        private ObservableCollection<Fornecedores> _fornecedores;
+        public ObservableCollection<Fornecedores> Fornecedores
         {
             get => _fornecedores;
             set
@@ -55,8 +55,8 @@ namespace proj1.ViewModels
             }
         }
 
-        private Fornecedor _fornecedorSelecionado;
-        public Fornecedor FornecedorSelecionado
+        private Fornecedores _fornecedorSelecionado;
+        public Fornecedores FornecedorSelecionado
         {
             get => _fornecedorSelecionado;
             set
@@ -90,13 +90,13 @@ namespace proj1.ViewModels
 
         private void CarregarFornecedores()
         {
-            Fornecedores = new ObservableCollection<Fornecedor>(_context.Fornecedores.ToList());
+            Fornecedores = new ObservableCollection<Fornecedores>(_context.Fornecedor.ToList());
         }
 
         private void CarregarDados()
         {
 
-            Produtos = new ObservableCollection<Produto>(
+            Produtos = new ObservableCollection<Produtos>(
                 _context.Produtos.Include(p => p.Fornecedor).ToList());
 
         }
@@ -122,7 +122,7 @@ namespace proj1.ViewModels
                 _context.SaveChanges();          
                 CarregarDados();
 
-                ProdutoSelecionado = new Produto();
+                ProdutoSelecionado = new Produtos();
             }
             catch (Exception ex)
             {
@@ -131,7 +131,7 @@ namespace proj1.ViewModels
         }
         private void NovoProduto()
         {
-            ProdutoSelecionado = new Produto();
+            ProdutoSelecionado = new Produtos();
           
         }
 
@@ -163,14 +163,17 @@ namespace proj1.ViewModels
             {
                 try
                 {
-                    _context.Produtos.Remove(ProdutoSelecionado);
-                    _context.SaveChanges();
-                    Produtos.Remove(ProdutoSelecionado);
-
+                    var produto = _context.Produtos.FirstOrDefault(p => p.ID == ProdutoSelecionado.ID);
+                    if (produto != null)
+                    {
+                        _context.Produtos.Remove(produto);
+                        _context.SaveChanges();
+                        Produtos.Remove(ProdutoSelecionado);
+                    }
                 }
                 catch (DbUpdateException)
                 {
-                    MessageBox.Show("Erro ao remover: Produto esta vinculado");
+                    MessageBox.Show("Erro ao remover: Produto está vinculado");
                 }
             }
         }

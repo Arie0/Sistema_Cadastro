@@ -13,10 +13,10 @@ namespace proj1.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class CADEntities7 : DbContext
+    public partial class sistemaEntities2 : DbContext
     {
-        public CADEntities7()
-            : base("name=CADEntities7")
+        public sistemaEntities2()
+            : base("name=sistemaEntities2")
         {
         }
     
@@ -25,6 +25,6 @@ namespace proj1.Models
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Produto> Produtoes { get; set; }
+        public virtual DbSet<Produtos> Produtos { get; set; }
     }
 }

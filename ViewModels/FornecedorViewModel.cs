@@ -20,8 +20,8 @@ namespace proj1.ViewModels
     {
         private readonly CadastroContext _context = new CadastroContext();
 
-        private ObservableCollection<Fornecedor> _fornecedores;
-        public ObservableCollection<Fornecedor> Fornecedores
+        private ObservableCollection<Fornecedores> _fornecedores;
+        public ObservableCollection<Fornecedores> Fornecedores
         {
             get => _fornecedores;
             private set
@@ -31,8 +31,8 @@ namespace proj1.ViewModels
             }
         }
 
-        private Fornecedor _fornecedorSelecionado;
-        public Fornecedor FornecedorSelecionado
+        private Fornecedores _fornecedorSelecionado;
+        public Fornecedores FornecedorSelecionado
         {
             get => _fornecedorSelecionado;
             set
@@ -58,7 +58,7 @@ namespace proj1.ViewModels
             AtualizarFornecedorCommand = new RelayCommand(AtualizarFornecedor, () => FornecedorSelecionado != null);
             RemoverFornecedorCommand = new RelayCommand(RemoverFornecedor, () => FornecedorSelecionado != null);
 
-            FornecedorSelecionado = new Fornecedor(); 
+            FornecedorSelecionado = new Fornecedores(); 
         }
 
         
@@ -69,7 +69,7 @@ namespace proj1.ViewModels
             {
                 if (FornecedorSelecionado.ID == 0)
                 {
-                    _context.Fornecedores.Add(FornecedorSelecionado);
+                    _context.Fornecedor.Add(FornecedorSelecionado);
                     
                 }
                 else
@@ -88,13 +88,13 @@ namespace proj1.ViewModels
 
         private void CarregarFornecedores()
         {
-            Fornecedores = new ObservableCollection<Fornecedor>(_context.Fornecedores.ToList());
+            Fornecedores = new ObservableCollection<Fornecedores>(_context.Fornecedor.ToList());
         }
 
       
         private void NovoFornecedor()
         {
-            FornecedorSelecionado = new Fornecedor();
+            FornecedorSelecionado = new Fornecedores();
 
         }
 
@@ -120,7 +120,7 @@ namespace proj1.ViewModels
             {
                 try
                 {
-                    _context.Fornecedores.Remove(FornecedorSelecionado);
+                    _context.Fornecedor.Remove(FornecedorSelecionado);
                     _context.SaveChanges();
                     Fornecedores.Remove(FornecedorSelecionado);
                     
@@ -135,7 +135,7 @@ namespace proj1.ViewModels
        
         private void LimparCampos()
         {
-            FornecedorSelecionado = new Fornecedor();
+            FornecedorSelecionado = new Fornecedores();
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

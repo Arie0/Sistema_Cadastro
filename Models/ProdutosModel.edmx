@@ -4,49 +4,49 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="CADModel1.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <EntityType Name="Produto">
+      <Schema Namespace="sistemaModel1.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Produtos">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Nome" Type="varchar" MaxLength="100" Nullable="false" />
-          <Property Name="Descricao" Type="text" />
+          <Property Name="Nome" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Descricao" Type="nvarchar" MaxLength="255" />
           <Property Name="Preco" Type="decimal" Precision="10" Scale="2" Nullable="false" />
           <Property Name="Quantidade" Type="int" Nullable="false" />
           <Property Name="FornecedorID" Type="int" />
         </EntityType>
-        <EntityContainer Name="CADModel1StoreContainer">
-          <EntitySet Name="Produto" EntityType="Self.Produto" Schema="dbo" store:Type="Tables" />
+        <EntityContainer Name="sistemaModel1StoreContainer">
+          <EntitySet Name="Produtos" EntityType="Self.Produtos" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
       </Schema>
     </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="CADModel1" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="Produto">
+      <Schema Namespace="sistemaModel1" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Produtos">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Nome" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Descricao" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Nome" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Descricao" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="Preco" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
           <Property Name="Quantidade" Type="Int32" Nullable="false" />
           <Property Name="FornecedorID" Type="Int32" />
         </EntityType>
-        <EntityContainer Name="CADEntities7" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Produtoes" EntityType="Self.Produto" />
+        <EntityContainer Name="sistemaEntities2" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Produtos" EntityType="Self.Produtos" />
         </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="CADModel1StoreContainer" CdmEntityContainer="CADEntities7">
-          <EntitySetMapping Name="Produtoes">
-            <EntityTypeMapping TypeName="CADModel1.Produto">
-              <MappingFragment StoreEntitySet="Produto">
+        <EntityContainerMapping StorageEntityContainer="sistemaModel1StoreContainer" CdmEntityContainer="sistemaEntities2">
+          <EntitySetMapping Name="Produtos">
+            <EntityTypeMapping TypeName="sistemaModel1.Produtos">
+              <MappingFragment StoreEntitySet="Produtos">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Nome" ColumnName="Nome" />
                 <ScalarProperty Name="Descricao" ColumnName="Descricao" />
@@ -70,7 +70,7 @@
     <Options>
       <DesignerInfoPropertySet>
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
-        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
         <DesignerProperty Name="UseLegacyProvider" Value="false" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="None" />

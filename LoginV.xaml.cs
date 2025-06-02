@@ -32,7 +32,7 @@ namespace proj1
 
         private void btnLogin_Click_1(object sender, RoutedEventArgs e)
         {
-            using (SqlConnection con = new SqlConnection(@"SERVER=ARIELE\SQLEXPRESS;Initial Catalog=CAD;Integrated Security=True;Encrypt=False"))
+            using (SqlConnection con = new SqlConnection(@"SERVER=ARIELE\SQLTEST;Initial Catalog=sistema;Integrated Security=True;Encrypt=False"))
             {
                 try
                 {

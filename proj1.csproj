@@ -86,41 +86,41 @@
     <Compile Include="LoginV.xaml.cs">
       <DependentUpon>LoginV.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Models\Fornecedor.cs">
-      <DependentUpon>FornecedorModel.tt</DependentUpon>
+    <Compile Include="Models\Fornecedores.cs">
+      <DependentUpon>FornecedoresModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\FornecedorModel.Context.cs">
+    <Compile Include="Models\FornecedoresModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>FornecedorModel.Context.tt</DependentUpon>
+      <DependentUpon>FornecedoresModel.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\FornecedorModel.cs">
+    <Compile Include="Models\FornecedoresModel.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>FornecedorModel.tt</DependentUpon>
+      <DependentUpon>FornecedoresModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\FornecedorModel.Designer.cs">
+    <Compile Include="Models\FornecedoresModel.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>FornecedorModel.edmx</DependentUpon>
+      <DependentUpon>FornecedoresModel.edmx</DependentUpon>
     </Compile>
-    <Compile Include="Models\Produto.cs">
-      <DependentUpon>ProdutoModel.tt</DependentUpon>
+    <Compile Include="Models\Produtos.cs">
+      <DependentUpon>ProdutosModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\ProdutoModel.Context.cs">
+    <Compile Include="Models\ProdutosModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>ProdutoModel.Context.tt</DependentUpon>
+      <DependentUpon>ProdutosModel.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\ProdutoModel.cs">
+    <Compile Include="Models\ProdutosModel.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>ProdutoModel.tt</DependentUpon>
+      <DependentUpon>ProdutosModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\ProdutoModel.Designer.cs">
+    <Compile Include="Models\ProdutosModel.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>ProdutoModel.edmx</DependentUpon>
+      <DependentUpon>ProdutosModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\Usuario.cs">
       <DependentUpon>UsuarioModel.tt</DependentUpon>
@@ -191,24 +191,24 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EntityDeploy Include="Models\FornecedorModel.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>FornecedorModel.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <None Include="Models\FornecedorModel.edmx.diagram">
-      <DependentUpon>FornecedorModel.edmx</DependentUpon>
-    </None>
-    <EntityDeploy Include="Models\ProdutoModel.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>ProdutoModel.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <None Include="Models\ProdutoModel.edmx.diagram">
-      <DependentUpon>ProdutoModel.edmx</DependentUpon>
-    </None>
     <EntityDeploy Include="Models\UsuarioModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>UsuarioModel.Designer.cs</LastGenOutput>
     </EntityDeploy>
+    <EntityDeploy Include="Models\FornecedoresModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>FornecedoresModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="Models\FornecedoresModel.edmx.diagram">
+      <DependentUpon>FornecedoresModel.edmx</DependentUpon>
+    </None>
+    <EntityDeploy Include="Models\ProdutosModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>ProdutosModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="Models\ProdutosModel.edmx.diagram">
+      <DependentUpon>ProdutosModel.edmx</DependentUpon>
+    </None>
     <None Include="Models\UsuarioModel.edmx.diagram">
       <DependentUpon>UsuarioModel.edmx</DependentUpon>
     </None>
@@ -229,25 +229,25 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Models\FornecedorModel.Context.tt">
+    <Content Include="Models\FornecedoresModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>FornecedorModel.edmx</DependentUpon>
-      <LastGenOutput>FornecedorModel.Context.cs</LastGenOutput>
+      <DependentUpon>FornecedoresModel.edmx</DependentUpon>
+      <LastGenOutput>FornecedoresModel.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="Models\FornecedorModel.tt">
+    <Content Include="Models\FornecedoresModel.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>FornecedorModel.edmx</DependentUpon>
-      <LastGenOutput>FornecedorModel.cs</LastGenOutput>
+      <DependentUpon>FornecedoresModel.edmx</DependentUpon>
+      <LastGenOutput>FornecedoresModel.cs</LastGenOutput>
     </Content>
-    <Content Include="Models\ProdutoModel.Context.tt">
+    <Content Include="Models\ProdutosModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>ProdutoModel.edmx</DependentUpon>
-      <LastGenOutput>ProdutoModel.Context.cs</LastGenOutput>
+      <DependentUpon>ProdutosModel.edmx</DependentUpon>
+      <LastGenOutput>ProdutosModel.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="Models\ProdutoModel.tt">
+    <Content Include="Models\ProdutosModel.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>ProdutoModel.edmx</DependentUpon>
-      <LastGenOutput>ProdutoModel.cs</LastGenOutput>
+      <DependentUpon>ProdutosModel.edmx</DependentUpon>
+      <LastGenOutput>ProdutosModel.cs</LastGenOutput>
     </Content>
     <Content Include="Models\UsuarioModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
