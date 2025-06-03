@@ -62,7 +62,11 @@ namespace proj1.ViewModels
             set
             {                
                     _fornecedorSelecionado = value;
-                    OnPropertyChanged(nameof(FornecedorSelecionado));
+                if (ProdutoSelecionado != null && value != null)
+                {
+                    ProdutoSelecionado.FornecedorID = value.ID;
+                }
+                OnPropertyChanged(nameof(FornecedorSelecionado));
 
                     
                 
@@ -78,6 +82,8 @@ namespace proj1.ViewModels
 
         public ProdutoViewModel()
         {
+
+            ProdutoSelecionado = new Produtos();
             CarregarFornecedores();
             CarregarDados();
 
@@ -96,6 +102,7 @@ namespace proj1.ViewModels
         private void CarregarDados()
         {
 
+
             Produtos = new ObservableCollection<Produtos>(
                 _context.Produtos.Include(p => p.Fornecedor).ToList());
 
@@ -105,20 +112,25 @@ namespace proj1.ViewModels
         {
             try
             {
+                if (ProdutoSelecionado == null)
+                {
+                    MessageBox.Show("Nenhum produto selecionado!");
+                    return;
+                }
 
                 if (FornecedorSelecionado != null)
                     ProdutoSelecionado.FornecedorID = FornecedorSelecionado.ID;
 
-                if (ProdutoSelecionado.ID == 0)
+                if (ProdutoSelecionado.ID != 0)
                 {
-                    _context.Produtos.Add(ProdutoSelecionado);
+                    _context.Entry(ProdutoSelecionado).State = EntityState.Modified;
+
                 }
                 else
                 {
-                    _context.Entry(ProdutoSelecionado).State = EntityState.Modified;
-                                                        
+                    _context.Produtos.Add(ProdutoSelecionado);
                 }
-                                
+
                 _context.SaveChanges();          
                 CarregarDados();
 
@@ -153,7 +165,7 @@ namespace proj1.ViewModels
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Erro ao atualizar!");
+                MessageBox.Show($"Erro ao atualizar: {ex.Message}");
             }
         }
 
