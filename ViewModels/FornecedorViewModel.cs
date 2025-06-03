@@ -47,8 +47,6 @@ namespace proj1.ViewModels
         public ICommand NovoFornecedorCommand { get; }
         public ICommand AtualizarFornecedorCommand { get; }
         public ICommand RemoverFornecedorCommand { get; }
-
-
         public FornecedorViewModel()
         {
             CarregarFornecedores();
@@ -59,10 +57,7 @@ namespace proj1.ViewModels
             RemoverFornecedorCommand = new RelayCommand(RemoverFornecedor, () => FornecedorSelecionado != null);
 
             FornecedorSelecionado = new Fornecedores(); 
-        }
-
-        
-
+        }    
         private void SalvarFornecedor()
         {
             try
@@ -85,21 +80,15 @@ namespace proj1.ViewModels
                 MessageBox.Show($"Erro ao salvar: {ex.InnerException?.Message ?? ex.Message}");
             }
         }
-
         private void CarregarFornecedores()
         {
             Fornecedores = new ObservableCollection<Fornecedores>(_context.Fornecedor.ToList());
-        }
-
-      
+        }    
         private void NovoFornecedor()
         {
             FornecedorSelecionado = new Fornecedores();
 
-        }
-
-
-      
+        }    
         private void AtualizarFornecedor()
         {
             try
@@ -113,7 +102,6 @@ namespace proj1.ViewModels
                 MessageBox.Show($"Erro ao atualizar: {ex.Message}");
             }
         }
-
         private void RemoverFornecedor()
         {
             if (MessageBox.Show("Confirmar exclusão?", "Atenção", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
@@ -130,9 +118,7 @@ namespace proj1.ViewModels
                     MessageBox.Show("Erro ao remover: Fornecedor esta vinculado com um produto");
                 }
             }
-        }
-            
-       
+        }     
         private void LimparCampos()
         {
             FornecedorSelecionado = new Fornecedores();

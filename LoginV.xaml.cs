@@ -24,12 +24,10 @@ namespace proj1
     /// </summary>
     public partial class LoginV : Window
     {
-
         public LoginV()
         {
             InitializeComponent();
         }
-
         private void btnLogin_Click_1(object sender, RoutedEventArgs e)
         {
             using (SqlConnection con = new SqlConnection(@"SERVER=ARIELE\SQLTEST;Initial Catalog=sistema;Integrated Security=True;Encrypt=False"))
@@ -63,7 +61,6 @@ namespace proj1
                 }
             } 
         }
-
         private void btnSair_Click(object sender, RoutedEventArgs e)
         {
             this.Close();

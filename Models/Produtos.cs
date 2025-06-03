@@ -10,8 +10,7 @@
 namespace proj1.Models
 {
     using System;
-    using System.Collections.Generic;
-    
+    using System.Collections.Generic;  
     public partial class Produtos
     {
         public int ID { get; set; }
@@ -20,7 +19,6 @@ namespace proj1.Models
         public decimal Preco { get; set; }
         public int Quantidade { get; set; }
         public Nullable<int> FornecedorID { get; set; }
-
         public virtual Fornecedores Fornecedor { get; set; }
     }
 }

@@ -16,7 +16,6 @@ namespace proj1.Data
         }
         public DbSet<Produtos> Produtos { get; set; }
         public DbSet<Fornecedores> Fornecedor { get; set; }
-
         public DbSet<Usuario> Usuarios { get; set; }
 
     }

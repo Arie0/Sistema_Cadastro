@@ -19,8 +19,7 @@ namespace proj1.ViewModels
     public class ProdutoViewModel : INotifyPropertyChanged
     {
         private CadastroContext _context = new CadastroContext();
-
-      
+             
 
         private ObservableCollection<Produtos> _produtos;
         public ObservableCollection<Produtos> Produtos
@@ -41,7 +40,6 @@ namespace proj1.ViewModels
             {
                 _produtoSelecionado = value;
                 OnPropertyChanged(nameof(ProdutoSelecionado));
-
             }
         }
         private ObservableCollection<Fornecedores> _fornecedores;
@@ -68,21 +66,16 @@ namespace proj1.ViewModels
                 }
                 OnPropertyChanged(nameof(FornecedorSelecionado));
 
-                    
-                
             }
         }
 
         public ICommand SalvarCommand { get; }
-
         public ICommand NovoProdutoCommand { get; }
         public ICommand AtualizarCommand { get; }
         public ICommand RemoverProdutoCommand { get; }
 
-
         public ProdutoViewModel()
         {
-
             ProdutoSelecionado = new Produtos();
             CarregarFornecedores();
             CarregarDados();
@@ -93,21 +86,15 @@ namespace proj1.ViewModels
             RemoverProdutoCommand = new RelayCommand(RemoverProduto);
 
         }
-
         private void CarregarFornecedores()
         {
             Fornecedores = new ObservableCollection<Fornecedores>(_context.Fornecedor.ToList());
         }
-
         private void CarregarDados()
         {
-
-
             Produtos = new ObservableCollection<Produtos>(
                 _context.Produtos.Include(p => p.Fornecedor).ToList());
-
         }
-
         private void SalvarProduto()
         {
             try
@@ -146,7 +133,6 @@ namespace proj1.ViewModels
             ProdutoSelecionado = new Produtos();
           
         }
-
         private void AtualizarProduto()
         {
             if ( ProdutoSelecionado?.ID <= 0)
@@ -168,7 +154,6 @@ namespace proj1.ViewModels
                 MessageBox.Show($"Erro ao atualizar: {ex.Message}");
             }
         }
-
         private void RemoverProduto()
         {
             if (MessageBox.Show("Confirmar exclusão?", "Atenção", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
@@ -190,11 +175,9 @@ namespace proj1.ViewModels
             }
         }
 
-
         public event PropertyChangedEventHandler PropertyChanged;
         protected void OnPropertyChanged(string propertyName)=>
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        
+     
     }
-
 }
